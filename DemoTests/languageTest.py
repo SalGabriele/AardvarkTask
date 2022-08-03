@@ -1,5 +1,4 @@
 # pip install webdriver-manager
-import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -12,12 +11,17 @@ driver.maximize_window()
 driver.get("https://demo.betgames.tv/")
 languageButton = driver.find_element(By.ID, "language")
 languageButton.click()
-driver.implicitly_wait(100)
 languageLT = driver.find_element(By.XPATH, "//*[contains(text(), 'Lithuanian')]")
 languageLT.click()
-driver.implicitly_wait(10)
 contactUsField = driver.find_element(By.ID, "contact")
 assert contactUsField.text == 'SUSISIEKITE SU MUMIS'
 languageButton = driver.find_element(By.ID, "language")
 assert languageButton.text == "LITHUANIAN"
+navBarRight = driver.find_element(By.CLASS_NAME, "navbar-right")
+elementList = navBarRight.find_elements(By.TAG_NAME, "li")
+assert elementList[0].text == "DARBALAUKIS"
+assert elementList[1].text == "PLANŠETĖ"
+assert elementList[2].text == "MOBILUS"
+assert elementList[3].text == "REAGUOJANTIS"
+assert elementList[4].text == "MINI ŽAIDIMAS"
 driver.close()
